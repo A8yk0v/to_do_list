@@ -1,17 +1,16 @@
 import React from 'react'
+import Note from "../Note/Note";
 
-class List extends React.Component{
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <div>
-                <ul>{this.props.notes}</ul>
+function List(props) {
+    return  <div>
+                <ul>{props.notes.map( (note, index) => {
+                    return <Note key={index}
+                                 id={index}
+                                 text={note.text}
+                                 handler_del={note.handler_del}
+                                 handler_edit={note.handler_edit}/>
+                })}</ul>
             </div>
-        )
-    }
 }
 
 export default List

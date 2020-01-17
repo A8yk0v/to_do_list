@@ -1,15 +1,7 @@
 import React from 'react'
 
-class Button extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <button onClick={() => {this.props.handler(this.props.id)}}>{this.props.lable}</button>
-        )
-    }
+function Button(props) {
+    return <button onClick={() => {props.handler(props.id)}}> {props.lable} </button>
 }
 
 export default Button
