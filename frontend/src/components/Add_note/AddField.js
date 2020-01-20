@@ -1,17 +1,18 @@
 import React, {useState} from 'react'
 
 function AddField(props) {
-    const [value, setValue] = useState("New ..");
+    const [value, setValue] = useState("");
 
     function handleSubmit(event) {
         props.transferData(value);
-        setValue("New ..");
+        setValue("");
         event.preventDefault();
     }
 
     return  <form onSubmit={handleSubmit}>
                 <p>Add:
-                    <textarea value={value}
+                    <textarea placeholder="New.."
+                              value={value}
                               onChange={(event) =>
                                   setValue(event.target.value)
                               }

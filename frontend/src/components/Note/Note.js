@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import Button from "../Button/Button";
 
 function Note(props) {
-    const [isActive, setIsActive]   = useState(true);
     const [isEdit, setIsEdit]       = useState(false);
     const [editValue, setEditValue] = useState(props.text);
 
@@ -15,7 +14,9 @@ function Note(props) {
     // Компоненты в ряд
     const container = {
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+
+        minHeight: "100%",
     };
 
     const arg = {
@@ -29,8 +30,10 @@ function Note(props) {
 
     return  <div>
                 <div style={container}>
-                    <li style={isActive ? arg : completedStyle}
-                        onClick={() => {setIsActive(!isActive)}} >
+                    <li style={props.isActive ? arg : completedStyle}
+                        onClick={() => {
+                            props.handler_edit(undefined, props.id, !props.isActive);
+                        }} >
                         {props.text}
                     </li>
                     <Button id={props.id} lable="X" handler={props.handler_del}/>
@@ -46,7 +49,7 @@ function Note(props) {
                     }}/>
                     <Button id={props.id} lable="Y" handler={(value)=>{
                         setIsEdit(false);
-                        props.handler_edit(editValue, props.id);
+                        props.handler_edit(editValue, props.id, undefined);
                     }}/>
                 </div>}
             </div>

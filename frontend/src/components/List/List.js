@@ -7,6 +7,7 @@ function List(props) {
                     return <Note key={index}
                                  id={index}
                                  text={note.text}
+                                 isActive={note.isActive}
                                  handler_del={note.handler_del}
                                  handler_edit={note.handler_edit}/>
                 })}</ul>
