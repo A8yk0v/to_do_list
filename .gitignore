@@ -4,6 +4,7 @@
 .idea/
 to_do_list.iml
 .gitignore
+frontend/dist
 
 # dependencies
 frontend/node_modules
