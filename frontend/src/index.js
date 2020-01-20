@@ -29,9 +29,9 @@ class Main extends React.Component {
         const notes_tmp = this.state.notes.filter((note, index) => {
             return index !== value;
         });
-        console.log("handleNote_Del notes", this.state.notes);
+        //console.log("handleNote_Del notes", this.state.notes);
         this.setState({notes: notes_tmp});
-        console.log("handleNote_Del notes", this.state.notes);
+        //console.log("handleNote_Del notes", this.state.notes);
     }
 
     handleNote_Edit(value, index, isActive) {
@@ -42,7 +42,7 @@ class Main extends React.Component {
         if (isActive !== undefined && index != undefined)
             notes_tmp[index].isActive = isActive;
 
-        console.log("handleNote_Del notes", this.state.notes);
+        //console.log("handleNote_Del notes", this.state.notes);
         this.setState({notes: notes_tmp});
     }
 
