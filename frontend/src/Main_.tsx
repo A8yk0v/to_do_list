@@ -1,22 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AddField from "./components/AddField/AddField.js";
+import AddField from "./components/AddField/AddField";
 import List from "./components/List/List";
 
 function Main(props) {
 
-
-
-    function handleNote_ADD(value) {
+    function handleNote_ADD(value: string): void {
         props.onAddNote(value);
     }
 
-    function handleNote_Del(value) {
-         props.onDelNote(value);
+    function handleNote_Del(value: string): void {
+        props.onDelNote(value);
     }
 
-    function handleNote_Edit(value, index, isActive) {
-         props.onEditNote(value, index, isActive);
+    function handleNote_Edit(value: string, index: number, isActive: boolean): void {
+        props.onEditNote(value, index, isActive);
     }
 
     return  <div>

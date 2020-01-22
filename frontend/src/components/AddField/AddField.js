@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 
 function AddField(props) {
     const [value, setValue] = useState("");
@@ -10,14 +10,13 @@ function AddField(props) {
     }
 
     return  <form onSubmit={handleSubmit}>
-                <p>Add:
-                    <textarea placeholder="New.."
-                              value={value}
-                              onChange={(event) =>
-                                  setValue(event.target.value)
-                              }
-                              rows="1"/>
-                    <input type="submit" value="Add" />
+                <p>Add: <textarea placeholder="New.."
+                                  value={value}
+                                  onChange={(event) =>
+                                      setValue(event.target.value)
+                                  }
+                        rows="1"/>
+                        <input type="submit" value="Add" />
                 </p>
             </form>
 }

@@ -5,7 +5,10 @@ import {Provider} from "react-redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import Main from "./Main";
 
+console.log("notesReducer");
+
 function notesReducer(state = [], action) {
+
     if (action.type == 'ADD_NOTE') {
         // const newState = state.concat(
         //         {text: action.value, isActive: true, handler_del: action.handleNote_Del, handler_edit: action.handleNote_Edit}
