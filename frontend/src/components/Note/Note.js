@@ -1,5 +1,13 @@
 import React, {useState} from 'react'
-import Button from "../Button/Button";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons/faTrashAlt";
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons/faPencilAlt';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons/faWindowClose';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons/faSyncAlt';
+import { faCheck } from '@fortawesome/free-solid-svg-icons/facheck';
+
+import Textarea from '@biocad/bcd-front-ui/controls/Textarea';
+import Button from "@biocad/bcd-front-ui/controls/Button";
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Note(props) {
     const [isEdit, setIsEdit]       = useState(false);
@@ -23,34 +31,45 @@ function Note(props) {
         // cursor: "pointer",
         position: "relative",
         float: "right",
-        // padding: "12px 8px 12px 40px",
-        // background: "#eee",
-        // fontSize: "18px",
+    };
+    const button_style = {
+        textAlign: "center",
+    };
+    const edit_textarea = {
+        width: "50%",
+        lineHeight: "1",
     };
 
     return  <div>
                 <div style={container}>
-                    <li style={props.isActive ? arg : completedStyle}
+                    <pre style={props.isActive ? arg : completedStyle}
                         onClick={() => {
                             props.handler_edit(undefined, props.id, !props.isActive);
                         }} >
                         {props.text}
-                    </li>
-                    <Button id={props.id} lable="X" handler={props.handler_del}/>
-                    <Button id={props.id} lable="Edit" handler={()=>{setIsEdit(!isEdit)}}/>
+                    </pre>
+                    <Button pressed={true} icon={faCheck} size="L" onAction={()=>{
+                        props.handler_edit(undefined, props.id, !props.isActive);
+                    }}/>
+                    <Button icon={faPencilAlt} size="L" onAction={()=>{setIsEdit(!isEdit)}}/>
+                    <Button style={button_style} icon={faTrashAlt} size="L" onAction={() => {
+                        props.handler_del(props.id);
+                    }}/>
                 </div>
                 {isEdit == true &&
                 <div>
-                    <textarea rows="1" value={editValue} onChange={(event) => {
-                        setEditValue(event.target.value);
-                    }}/>
-                    <Button id={props.id} lable="N" handler={()=>{
+                    <Textarea style={edit_textarea} row="1" value={editValue}
+                              onChange={(event) => {
+                                  setEditValue(event.target.value);
+                              }}/>
+                    <Button icon={faWindowClose} size="L" onAction={() => {
                         setIsEdit(false);
                     }}/>
-                    <Button id={props.id} lable="Y" handler={(value)=>{
+                    <Button icon={faSyncAlt} size="L" onAction={()=>{
                         setIsEdit(false);
                         props.handler_edit(editValue, props.id, undefined);
                     }}/>
+
                 </div>}
             </div>
 }
