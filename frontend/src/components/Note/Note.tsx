@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import * as React from 'react'
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons/faTrashAlt";
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons/faPencilAlt';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons/faWindowClose';
@@ -7,11 +7,19 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons/facheck';
 
 import Textarea from '@biocad/bcd-front-ui/controls/Textarea';
 import Button from "@biocad/bcd-front-ui/controls/Button";
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Note(props) {
-    const [isEdit, setIsEdit]       = useState(false);
-    const [editValue, setEditValue] = useState(props.text);
+interface IProps {
+    key: number,
+    id: number,
+    text: string,
+    isActive: boolean,
+    handler_del: (index: number) => void,
+    handler_edit: (value: string, index: number, isActive: boolean) => void
+}
+
+const Note: React.FC<IProps> = (props) => {
+    const [isEdit, setIsEdit]       = React.useState(false);
+    const [editValue, setEditValue] = React.useState(props.text);
 
     // Зачеркнутый текст
     const completedStyle = {

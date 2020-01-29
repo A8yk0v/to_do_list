@@ -1,9 +1,15 @@
-import React from 'react'
+import * as React from 'react'
 import Note from "../Note/Note";
 import {Header, Table, Row as TableRow, Cell} from "@biocad/bcd-front-ui/layout/Table";
 import Card from '@biocad/bcd-front-ui/layout/Card';
 
-function List(props) {
+interface IProps {
+    notes: {text: string, isActive: boolean}[],
+    handler_del: (index: number) => void,
+    handler_edit: (value: string, index: number, isActive: boolean) => void
+}
+
+const List: React.FC<IProps> = (props) => {
 
     const style_table = {
         width: "300px",

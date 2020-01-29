@@ -1,5 +1,5 @@
-import React from 'react';
-import {render} from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import {Provider} from "react-redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -16,7 +16,7 @@ function notesReducer(state = [], action) {
         // return newState;
         return [
             ...state,
-            {text: action.value, isActive: true, handler_del: action.handleNote_Del, handler_edit: action.handleNote_Edit}
+            {text: action.value, isActive: true}
         ]; // This is Spread syntax
     }
     if (action.type == 'DEL_NOTE') {
@@ -40,7 +40,7 @@ function notesReducer(state = [], action) {
 // Создание хранилища с передачей редьюсера
 let store = createStore(notesReducer, composeWithDevTools());
 
-render(
+ReactDOM.render(
     <Provider store={store}>
         <Main/>
     </Provider>,

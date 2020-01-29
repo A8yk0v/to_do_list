@@ -50,7 +50,7 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 //     // };
 //
 //     return {
-//         entry: "./src/index.js",
+//         entry: "./src/index.tsx",
 //         output: {
 //             path: path.join(__dirname, "/dist"),
 //             filename: "./index_bundle.js"
@@ -160,11 +160,14 @@ module.exports = (env) => {
 
     return {
         mode: isEnvDevelopment ? 'development' : 'production',
-        entry: "./src/index.js",
+        entry: "./src/index.tsx",
         output: {
             path: path.join(__dirname, "/dist"),
             filename: "./index_bundle.js",
         },
+        // Включить карты кода для отладки вывода webpack
+        devtool: "source-map",
+
         devServer: {
             contentBase: path.join(__dirname, "/dist"),
             compress: true,
@@ -188,6 +191,11 @@ module.exports = (env) => {
                                 limit: 10000,
                                 name: 'static/media/[name].[hash:8].[ext]',
                             },
+                        },
+                        {
+                            test: /\.tsx?$/,
+                            use: 'ts-loader',
+                            exclude: /node_modules/
                         },
                         {
                             test: /\.(js|mjs|jsx|ts|tsx)$/,
@@ -225,11 +233,6 @@ module.exports = (env) => {
                                     }
                                 }
                             ]
-                        },
-                        {
-                            test: /\.tsx?$/,
-                            use: 'ts-loader',
-                            exclude: /node_modules/
                         },
                         {
                             loader: 'file-loader',
