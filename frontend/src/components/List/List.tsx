@@ -6,7 +6,7 @@ import Card from '@biocad/bcd-front-ui/layout/Card';
 interface IProps {
     notes: {text: string, isActive: boolean}[],
     handler_del: (index: number) => void,
-    handler_edit: (value: string, index: number, isActive: boolean) => void
+    handler_edit: (text: string, index: number, isActive: boolean) => void
 }
 
 const List: React.FC<IProps> = (props) => {
@@ -15,13 +15,16 @@ const List: React.FC<IProps> = (props) => {
         width: "300px",
         border: "2px solid black",
     };
+
     return  <div>
                 <Table style={style_table} >
                     <Header children={"Таски на сегодня"}/>
                         <TableRow>
                             <Cell className="first_header_cell">
                                 <div className="cell_container">
-                                    {props.notes.map( (note, index) => {
+                                    {
+                                        props.notes &&
+                                        props.notes.map( (note, index) => {
                                         return <Note key={index}
                                                      id={index}
                                                      text={note.text}
