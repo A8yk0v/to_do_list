@@ -1,19 +1,24 @@
 import * as React from 'react';
-import { useDispatch, useSelector, connect } from 'react-redux';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {HashRouter} from 'react-router-dom';
 import AddField from "./components/AddField/AddField";
-
-import List from "./components/List/List";
 import Screen from "@biocad/bcd-front-ui/layout/Screen";
-import {Header} from "@biocad/bcd-front-ui/layout/Table";
 
-import {InitialState, RootDispatcher} from "./index";
+import RadioGroup from '@biocad/bcd-front-ui/controls/RadioGroup';
+import {faStickyNote} from '@fortawesome/free-solid-svg-icons/faStickyNote';
+import {faListAlt} from '@fortawesome/free-solid-svg-icons/faListAlt';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+
+import {InitialState, RootDispatcher, viewModeType} from "./index";
+import StickersConteiner from "./components/stickersContainer/StickersContainer";
+import TableContainer from "./components/List/TableContainer";
 
 interface Props {
 }
 
 interface StateProps {
-    state: {text: string, isActive: boolean}[];
+    state: {title: string, text: string, isActive: boolean}[];
+    viewMode: viewModeType;
 }
 
 const Main: React.FC<Props> = () => {
@@ -21,28 +26,23 @@ const Main: React.FC<Props> = () => {
     const state: StateProps = useSelector<InitialState, StateProps>((state: InitialState) => {
         return {
             state: state.notes,
+            viewMode: state.viewMode,
         }
     });
 
     const dispatch = useDispatch();
     const rootDispatcher = new RootDispatcher(dispatch);
 
-    function handleNote_ADD(text: string): void {
-        // props.onAddNote(value);
-        debugger;
-        rootDispatcher.addNote(text);
+    function handleNote_ADD(title: string, text: string): void {
+        rootDispatcher.addNote(title, text);
     }
 
     function handleNote_Del(index: number): void {
-        // props.onDelNote(value);
-        debugger;
         rootDispatcher.delNote(index);
     }
 
-    function handleNote_Edit(text: string, index: number, isActive: boolean): void {
-        // props.onEditNote(text, index, isActive);
-        debugger;
-        rootDispatcher.editNote(text, index, isActive);
+    function handleNote_Edit(title: string, text: string, index: number, isActive: boolean): void {
+        rootDispatcher.editNote(title, text, index, isActive);
     }
 
     const h2_style = {
@@ -50,27 +50,53 @@ const Main: React.FC<Props> = () => {
         marginRight: "auto",
     };
 
-    const Sidebar_style = {
-        height: "100%",
-    };
-
     const Logo = () => <div style={{fontSize:'24px'}}>📝</div>;
 
-    return  <div>
+    const divStyle = {
+        // Контент во весь экран
+        height: "100vh",
+    };
+
+    const screenContentStyle = {
+        margin: "10px",
+        //display: "inline-block",
+    };
+
+    const ObjOptions =  [
+        {value: 'stickers', label:<FontAwesomeIcon icon={faStickyNote}/>},
+        {value: 'table', label:<FontAwesomeIcon icon={faListAlt}/>}
+    ];
+
+    return  <div style={divStyle}>
         <HashRouter>
             <Screen>
-                <Screen.Header Logo={Logo} version="v0.1"/>
+                <Screen.Header Logo={Logo} version="v0.1">
+                    <RadioGroup
+                        name     = "group-view"
+                        view     = "icon"
+                        options  = { ObjOptions }
+                        defaultValue    = { ObjOptions[0] }
+                        onChange = { () => rootDispatcher.switchViewMode() }
+                    />
+                </Screen.Header>
                 <Screen.SidebarLayout>
                     <Screen.Sidebar collapsible>
                         <h2 style={h2_style}>To do list</h2>
                         <AddField transferData={handleNote_ADD}/>
                     </Screen.Sidebar>
                     <Screen.Content>
-                        <Screen.Panel>
-                            <List notes={state.state}
-                                  handler_del={handleNote_Del}
-                                  handler_edit={handleNote_Edit}/>
-                        </Screen.Panel>
+                        { state.viewMode == viewModeType.STICKER_MODE &&
+                            <StickersConteiner notes={state.state}
+                                               handler_del={handleNote_Del}
+                                               handler_edit={handleNote_Edit}/>
+                        }
+                        { state.viewMode == viewModeType.TABLE_MODE &&
+                            <Screen.Panel>
+                                <TableContainer notes={state.state}
+                                                handler_del={handleNote_Del}
+                                                handler_edit={handleNote_Edit}/>
+                            </Screen.Panel>
+                        }
                     </Screen.Content>
                 </Screen.SidebarLayout>
             </Screen>

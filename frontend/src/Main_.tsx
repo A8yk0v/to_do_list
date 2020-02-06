@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AddField from "./components/AddField/AddField";
-import List from "./components/List/List";
+import TableContainer from "./components/List/TableContainer";
+import StickersConteiner from "./components/stickersContainer/StickersContainer";
 
 function Main(props) {
 
@@ -20,10 +21,18 @@ function Main(props) {
     return  <div>
         <h1>to do list</h1>
         <AddField transferData={handleNote_ADD}/>
-        <List notes={props.store}
+        <StickersConteiner notes={props.store}
               handler_del={handleNote_Del}
               handler_edit={handleNote_Edit}/>
     </div>
+
+    // return  <div>
+    //     <h1>to do list</h1>
+    //     <AddField transferData={handleNote_ADD}/>
+    //     <TableContainer notes={props.store}
+    //           handler_del={handleNote_Del}
+    //           handler_edit={handleNote_Edit}/>
+    // </div>
 }
 
 export default connect(

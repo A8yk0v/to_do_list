@@ -1,0 +1,25 @@
+.cardStyle {
+    margin-top: 10px;
+    margin-left: 10px;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    vertical-align: top;
+}
+
+.control {
+    visibility: hidden;
+    flex-direction: row;
+    display: flex;
+    min-height: 100%;
+}
+
+.cardStyle:hover {
+    border: 1px solid #00a000;
+}
+
+.cardStyle:hover .control {
+    visibility: visible;
+    flex-direction: row;
+}

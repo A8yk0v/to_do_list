@@ -11,10 +11,11 @@ import Button from "@biocad/bcd-front-ui/controls/Button";
 interface IProps {
     key: number,
     id: number,
+    title: string,
     text: string,
     isActive: boolean,
     handler_del: (index: number) => void,
-    handler_edit: (value: string, index: number, isActive: boolean) => void
+    handler_edit: (title: string, value: string, index: number, isActive: boolean) => void
 }
 
 const Note: React.FC<IProps> = (props) => {
@@ -25,7 +26,8 @@ const Note: React.FC<IProps> = (props) => {
     const completedStyle = {
         fontStyle: "italic",
         color: "#cdcdcd",
-        textDecoration: "line-through"
+        textDecoration: "line-through",
+        cursor: "pointer",
     };
     // Компоненты в ряд
     const container = {
@@ -36,9 +38,9 @@ const Note: React.FC<IProps> = (props) => {
     };
 
     const arg = {
-        // cursor: "pointer",
         position: "relative",
         float: "right",
+        cursor: "pointer",
     };
     const button_style = {
         textAlign: "center",
@@ -52,12 +54,13 @@ const Note: React.FC<IProps> = (props) => {
                 <div style={container}>
                     <pre style={props.isActive ? arg : completedStyle}
                         onClick={() => {
-                            props.handler_edit(undefined, props.id, !props.isActive);
+                            props.handler_edit(undefined, undefined, props.id, !props.isActive);
                         }} >
+                        <h3>{props.titel}</h3>
                         {props.text}
                     </pre>
                     <Button pressed={true} icon={faCheck} size="L" onAction={()=>{
-                        props.handler_edit(undefined, props.id, !props.isActive);
+                        props.handler_edit(undefined, undefined, props.id, !props.isActive);
                     }}/>
                     <Button icon={faPencilAlt} size="L" onAction={()=>{setIsEdit(!isEdit)}}/>
                     <Button style={button_style} icon={faTrashAlt} size="L" onAction={() => {
@@ -75,7 +78,7 @@ const Note: React.FC<IProps> = (props) => {
                     }}/>
                     <Button icon={faSyncAlt} size="L" onAction={()=>{
                         setIsEdit(false);
-                        props.handler_edit(editValue, props.id, undefined);
+                        props.handler_edit(props.title, editValue, props.id, undefined);
                     }}/>
 
                 </div>}
