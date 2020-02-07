@@ -36,27 +36,6 @@ const StickersConteiner: React.FC<IProps> = (props) => {
                                  handler_del={props.handler_del}
                                  handler_edit={props.handler_edit}/>
                 });
-    // <div>
-    //         <Table>
-    //             <Header children={"Таски на сегодня"}/>
-    //                 <TableRow>
-    //                     <Cell className="first_header_cell">
-    //                         <div className="cell_container">
-    //                             {
-    //                                 props.notes.map( (note, index) => {
-    //                                 return <Note key={index}
-    //                                              id={index}
-    //                                              text={note.text}
-    //                                              isActive={note.isActive}
-    //                                              handler_del={props.handler_del}
-    //                                              handler_edit={props.handler_edit}/>
-    //                             })}
-    //                         </div>
-    //                     </Cell>
-    //                 </TableRow>
-    //
-    //         </Table>
-    //     </div>
-}
+};
 
 export default StickersConteiner

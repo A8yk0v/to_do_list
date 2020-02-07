@@ -24,7 +24,7 @@ interface IProps {
 const Stickers: React.FC<IProps> = (props) => {
     const [isEdit, setIsEdit]       = React.useState(false);
     const [editValue, setEditValue] = React.useState(props.text);
-    const [isFocus, setIsFocus] = React.useState(false);
+    const [isFocus, setIsFocus]     = React.useState(false);
 
     // Зачеркнутый текст
     const completedStyle = {
